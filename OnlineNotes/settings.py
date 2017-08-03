@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for OnlineNotes project.
 
@@ -11,9 +12,12 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +29,7 @@ SECRET_KEY = 'i4$fs4nora&3@su$&%!)9((0_%-nr_brd5=q#8!$+95zg7t2u8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'crispy_forms',
+    'xadmin'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -74,15 +80,12 @@ AUTH_USER_MODEL = "users.UserProfile"
 WSGI_APPLICATION = 'OnlineNotes.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'onlinenotes',
         'USER': 'root',
-        'PASSWORD': 'pass',
+        'PASSWORD': 'root',
         'HOST': '127.0.0.1',
     }
 }
@@ -109,19 +112,36 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
+# chinese
+LANGUAGE_CODE = 'zh-hans'
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
 USE_L10N = True
+# use local now time
+USE_TZ = False
 
-USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
-
+# 自己在本地使用过 collections 所以 static 会从record下的static查找，在换model_icon时必须替换record下static
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),  # tuble 中只有一个元素的时候必须加一个,
+)
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+# 邮箱配置
+EMAIL_HOST = "smtp.sina.com"
+EMAIL_PORT = 25
+EMAIL_HOST_USER = "615chaoge@sina.com"
+EMAIL_HOST_PASSWORD = "615chaoge"
+EMAIL_USE_TLS = False
+EMAIL_FROM = "615chaoge@sina.com"
+
+# html 中静态调用图片的根目录
+MEDIA_URL = '/media/'
+# 上传文件根目录
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+

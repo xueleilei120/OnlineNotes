@@ -1,0 +1,303 @@
+html, body {
+  color: #505050;
+  line-height: 1.75em;
+  background: #ebebeb;
+  position: relative;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "WenQuanYi Micro Hei", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 400;
+  color: #303030;
+}
+h1 {
+  font-size: 3em;
+}
+h2 {
+  font-size: 2.5em;
+}
+h3 {
+  font-size: 2em;
+}
+h4 {
+  font-size: 1.5em;
+}
+h5 {
+  font-size: 1em;
+}
+h6 {
+  font-size: 0.75em;
+}
+
+a {
+  color: #e67e22;
+  outline: none;
+}
+a:hover {
+  color: #e67e22;
+}
+a:active,
+a:focus,
+a img {
+  outline: none;
+}
+
+
+
+
+.content-padding {
+    padding: 82px 1px;
+}
+
+
+/* header */
+/*====================================================
+	header
+====================================================*/
+.main-header .branding:hover {
+  text-decoration: none;
+}
+
+/* post */
+/*====================================================
+	main post area
+====================================================*/
+
+.post {
+    padding: 35px;
+    background: #ffffff;
+    margin-bottom: 35px;
+    position: relative;
+    overflow: hidden;
+}
+
+.post .featured-media img {
+  width: 100%;
+  height: 280px;
+}
+
+.post .featured-media {
+  margin-top: 30px;
+  overflow: hidden;
+}
+
+.post .post-head .post-title a {
+  color: #303030;
+}
+
+.post .post-head .post-meta {
+  color: #959595;
+  margin: 14px 0px;
+}
+
+.post .post-head .post-title a:hover,
+.post .post-head .post-title a:focus {
+  text-decoration: none;
+}
+.post .post-head {
+  text-align: center;
+}
+
+.post .post-head .post-title {
+  margin: 0;
+  font-size: 2.5em;
+  line-height: 1em;
+}
+.post .post-head .post-title a {
+  color: #303030;
+}
+
+
+
+/* post content */
+/*====================================================
+  main post content
+====================================================*/
+.post-content {
+  font: 400 18px/1.62 "Georgia", "Xin Gothic", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
+  color: #444443;
+}
+.post-content p {
+  margin-top: 0;
+  margin-bottom: 1.46em;
+}
+
+
+/*====================================================
+  button
+====================================================*/
+.btn {
+  padding: 7px 14px;
+  border-radius: 2px;
+}
+.btn-default {
+  border: 1px solid #e67e22;
+  background: #e67e22;
+  color: #ffffff;
+  -webkit-transition: all 0.2s ease-in-out;
+       -o-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
+}
+.btn-default:hover {
+  border: 1px solid #303030;
+  background: #303030;
+  color: #ffffff;
+}
+.btn-default:focus {
+  outline: none;
+}
+.btn-default[disabled] {
+  border: 1px solid #303030;
+  background: #303030;
+  color: #ffffff;
+}
+
+.btn_active{
+  border: 1px solid #303030;
+  background: #303030;
+  color: #ffffff;
+}
+
+/* sidebar */
+/*====================================================
+	sidebar
+====================================================*/
+.sidebar .widget {
+  background: #ffffff;
+  padding: 21px 30px;
+}
+
+.widget {
+  margin-bottom: 35px;
+}
+.widget .title {
+  margin-top: 0;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #ebebeb;
+  margin-bottom: 21px;
+  position: relative;
+}
+.widget .tag-cloud a {
+  border: 1px solid #ebebeb;
+  padding: 2px 7px;
+  color: #959595;
+  line-height: 1.5em;
+  display: inline-block;
+  margin: 0 7px 7px 0;
+  -webkit-transition: all 0.2s ease;
+       -o-transition: all 0.2s ease;
+          transition: all 0.2s ease;
+}
+
+.widget .tag-cloud a:hover {
+  color: #ffffff;
+  background: #e67e22;
+  border: 1px solid #e67e22;
+  text-decoration: none;
+}
+
+.copyright {
+  background: #111;
+  font-size: 13px;
+  text-align: center;
+  color: #555555;
+  padding-top: 28px;
+  padding-bottom: 28px;
+  border-top: 1px solid #303030;
+}
+
+.btn-signin{
+  padding-top: 8px;
+}
+
+/* footer */
+/*====================================================
+	footer
+====================================================*/
+.main-footer {
+  background: #202020;
+  padding: 35px 0 0;
+  color: #959595;
+}
+
+.main-footer .widget {
+  padding: 0px 30px;
+}
+.main-footer .widget .title {
+  color: #ffffff;
+  border-bottom: 1px solid #303030;
+}
+.main-footer .widget .recent-post .recent-single-post .post-title {
+  color: #959595;
+}
+.main-footer .widget .tag-cloud a {
+  border: 1px solid #303030;
+}
+
+/* pagination */
+/*====================================================
+	pagination
+====================================================*/
+.pagination {
+  margin: 0 0 35px;
+  text-align: center;
+  display: block;
+}
+.pagination a {
+  text-align: center;
+  display: inline-block;
+  color: #ffffff;
+  background: #e67e22;
+  border-radius: 2px;
+}
+.pagination a a:hover {
+  background: #505050;
+  text-decoration: none;
+  color: #ffffff;
+}
+.pagination a i {
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+}
+.pagination .page-number {
+  background: #e67e22;
+  color: #ffffff;
+  margin: 0 3px;
+  display: inline-block;
+  line-height: 36px;
+  padding: 0 14px;
+  border-radius: 2px;
+}
+
+
+#back-to-top {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  background: rgba(230, 126, 34, 0.6);
+  color: #ffffff;
+  text-align: center;
+  border-radius: 2px;
+  z-index: 1;
+  display: none;
+}
+#back-to-top:hover {
+  background: #e67e22;
+}
+#back-to-top i {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+
+.carousel-inner>.item>img{
+    height: 500px;
+    width: 1140px;
+}
