@@ -1,0 +1,97 @@
+{% extends "base_notes.html" %}
+{% block title %}
+    笔记列表
+{% endblock %}
+
+{% block content %}
+    <section class="content-wrap">
+        <div class="container">
+			<div class="content-padding">
+				<div class="row">
+					<main class="col-md-8 main-content">
+                        {% for note in all_notes.object_list %}
+                            <article class="post">
+                                <div class="post-head">
+
+                                    <h1 class="post-title"><a href="{% url 'notes:note_detail' note.id %}">{{ note.name }}</a></h1>
+                                    <div class="post-meta">
+                                        <span class="author">作者：<a href="#">{{ note.author.nick_name }}</a></span> •
+                                        <time class="post-date" datetime="{{ note.add_time }}" title="{{ note.add_time }}">{{ note.add_time }}</time>
+                                    </div>
+                                </div>
+                                <div class="featured-media">
+                                    <a href="{% url 'notes:note_detail' note.id %}">
+                                        <img src="{{ MEDIA_URL }}{{ note.image }}">
+                                    </a>
+                                </div>
+                                <div class="post-content">
+                                    {% autoescape off %}
+                                        <p>{{ note.content|truncatewords:150 }}</p>
+                                    {% endautoescape %}
+                                </div>
+                                <br>
+                                <div class="post-permalink">
+                                    <a href="{% url 'notes:note_detail' note.id %}" class="btn btn-default">阅读全文</a>
+                                </div>
+                                <HR>
+                            </article>
+                        {% endfor %}
+
+                        <nav class="pagination" role="navigation">
+                                {% if all_notes.has_previous %}
+                                    <a class="newer-posts" href="?{{ all_notes.previous_page_number.querystring}}"><i class="fa fa-angle-left"></i></a>
+                                {% endif %}
+                                {% for page in all_notes.pages %}
+                                    {% if page %}
+                                        {% ifequal page all_notes.number %}
+                                            <span class="btn_active page-number"><a href="?{{ page.querystring }}">{{ page }}</a></span>
+                                        {% else %}
+                                            <span class="page-number"><a href="?{{ page.querystring }}">{{ page }}</a></span>
+                                        {% endifequal %}
+                                    {% else %}
+                                         <a href="">...</a>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if all_notes.has_next %}
+                                    <a class="older-posts" href="?{{ all_notes.next_page_number.querystring}}"><i class="fa fa-angle-right"></i></a>
+                                {% endif %}
+                        </nav>
+					</main>
+					<aside class="col-md-4 sidebar">
+						<!-- start tag cloud widget -->
+                        <div class="widget">
+                            <h4 class="title">分类</h4>
+                            {% for category in ALL_CATEGORYS %}
+                                <a href="?category_name={{ category.name }}" class="btn btn-default btn-block" >{{ category.name }}({{ category.note_num }})</a>
+                            {% endfor %}
+                        </div>
+                        <div class="widget">
+                            <h4 class="title">最热门</h4>
+                            <div class="content community">
+                                {% for note in  HOT_NODES %}
+                                    <p><a href="{% url 'notes:note_detail' note.id %}" >{{ note.name|truncatewords:5 }}</a>({{ note.click_nums }})</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+						<div class="widget">
+							<h4 class="title">个人</h4>
+							<div class="content community">
+								<p>QQ：290484002</p>
+								<p><a href="http://blog.csdn.net/shaququ" title="" target="_blank" onclick="_hmt.push(['_trackEvent', 'big-button', 'click', '问答社区'])"><i class="fa fa-comments"></i> CSDN</a></p>
+							</div>
+						</div>
+                        <div class="widget">
+                            <iframe width="100%" height="310" class="share_self"  frameborder="0" scrolling="no"
+                                src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=5795153368&verifier=d5702a0b&dpc=1">
+                            </iframe>
+                                <!-- 加关注按钮 -->
+                        </div>
+                        <!-- end tag cloud widget -->
+					</aside>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+
+

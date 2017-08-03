@@ -33,6 +33,9 @@ ALLOWED_HOSTS = ['*']
 
 
 # Application definition
+AUTHENTICATION_BACKENDS = (
+    'users.views.CustomBackend',
+)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -41,9 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',
     'crispy_forms',
-    'xadmin'
+    'xadmin',
+    'captcha',
+    'DjangoUeditor',
+    'users',
+    'notes',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -85,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'onlinenotes',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'pass',
         'HOST': '127.0.0.1',
     }
 }

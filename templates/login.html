@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %} 在线笔记登陆  {% endblock %}
+
+{% block custom_css %}
+    <link href="{% static 'OnlineNotes/css/register.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="login">
+        <div class="container">
+
+          <form action="" method="post" id="login-form">
+            <div class="panel panel-default panel-single" id="panel-login">
+            <input type="hidden" name="csrfmiddlewaretoken" value="VhE6QrxjL0gEI4fxC7BELbs8YOGF2LOT">
+
+              <div class="panel-heading">
+
+                <h2 class="form-signin-heading">请登录</h2>
+
+              </div>
+              <div class="panel-body">
+                  <div class="{% if msg %} has-error{% endif %}">
+                       {% if msg %}
+                            <p id="error_{{ forloop.counter }}_{{ field.auto_id }}" class="text-danger help-block">{{ msg }}</p>
+                        {% endif %}
+                  </div>
+                  <div id="div_id_email" class="row {% if login_form.email.errors %} has-error{% endif %}">
+                    <div class="controls clearfix">
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+                      <input class="form-control input-lg" id="id_email" maxlength="254" name="email" type="email" placeholder="请输入您的邮箱!">
+                    </div>
+
+                        {% for error in login_form.email.errors %}
+                            <p id="error_{{ forloop.counter }}_{{ field.auto_id }}" class="text-danger help-block">{{ error }}{{ msg }}</p>
+                        {% endfor %}
+
+                    </div>
+                  </div>
+
+                  <div id="div_id_password" class="row {% if login_form.password.errors %} has-error{% endif %}">
+                    <div class="controls clearfix">
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
+                      <input class="form-control input-lg" id="id_password" name="password" type="password" placeholder="密码">
+                    </div>
+                        {% for error in login_form.password.errors %}
+                            <p id="error_{{ forloop.counter }}_{{ field.auto_id }}" class="text-danger help-block">{{ error }}</p>
+                        {% endfor %}
+
+                    </div>
+                  </div>
+
+                  <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
+
+                  <div class="text-info" style="margin-top:15px;">
+{#                      <a href="/xadmin/xadmin/password_reset/"><i class="fa fa-question-sign"></i> 忘记了您的密码或用户名？</a>#}
+                      <a href="{% url 'register' %}"><i class="fa fa-question-sign"></i> 还没有账户，去注册？</a>
+                  </div>
+              </div>
+
+            </div>
+           {% csrf_token %}
+          </form>
+
+        </div> <!-- /container -->
+    </div>
+{% endblock %}
+
+{% block custom_js %}
+    <script type="text/javascript">
+    document.getElementById('id_email').focus()
+    </script>
+{% endblock %}

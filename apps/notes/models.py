@@ -32,7 +32,6 @@ class Category(models.Model):
 
 
 class Notes(models.Model):
-    author = models.ForeignKey(UserProfile, verbose_name=u"用户")
     name = models.CharField(max_length=200, verbose_name=u"标题")
     content = UEditorField(verbose_name=u'笔记内容', width=600, height=300,
                            imagePath="contents/ueditor/", filePath="contents/ueditor/", default='')

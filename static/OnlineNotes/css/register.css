@@ -1,0 +1,29 @@
+ #panel-login {
+  max-width: 350px;
+}
+#panel-login .controls{
+  padding: 0px 15px 15px !important;
+}
+
+#panel-login .alert-block{
+  padding: 0px;
+}
+#panel-login .alert-block ul{
+  margin: 10px 15px;
+  padding-left: 0px;
+}
+#panel-login .alert-block ul li{
+  list-style-type: none;
+}
+/* panel single **/
+.panel-single {
+      margin: 50px auto 20px;
+ }
+.captcha1 > input{
+   width:165px;
+    height: 46px;
+  }
+.captcha1 > img{
+  float:right;
+  margin-top:5px;
+}
