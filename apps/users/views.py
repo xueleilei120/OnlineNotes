@@ -94,6 +94,6 @@ class RegisterView(View):
             user_profile.save()
 
             # send_register_email(email, 'register')
-            return render(request, "login.html")
+            return HttpResponseRedirect(reverse("login"))
         else:
             return render(request, "register.html", {'register_form': register_form})

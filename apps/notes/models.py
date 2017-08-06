@@ -10,6 +10,7 @@ from users.models import UserProfile
 
 
 class Tag(models.Model):
+    author = models.ForeignKey(UserProfile, verbose_name=u"作者")
     name = models.CharField(max_length=40, default="", verbose_name=u"笔记标签")
 
     def __unicode__(self):
@@ -21,6 +22,7 @@ class Tag(models.Model):
 
 
 class Category(models.Model):
+    author = models.ForeignKey(UserProfile, verbose_name=u"作者")
     name = models.CharField(max_length=40, default="", verbose_name=u"分类")
 
     def __unicode__(self):
@@ -32,6 +34,7 @@ class Category(models.Model):
 
 
 class Notes(models.Model):
+    author = models.ForeignKey(UserProfile, verbose_name=u"作者")
     name = models.CharField(max_length=200, verbose_name=u"标题")
     content = UEditorField(verbose_name=u'笔记内容', width=600, height=300,
                            imagePath="contents/ueditor/", filePath="contents/ueditor/", default='')

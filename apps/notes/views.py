@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
 from django.core.urlresolvers import reverse
 
-from notes.models import Notes, Category
+from notes.models import Notes, Category, Tag
 from notes.forms import NodeEditorForm
 # from common.cache_manager import CacheMannager
 # Create your views here.
@@ -71,14 +71,14 @@ class NotesEditorView(View):
         if not request.user.is_authenticated():
             return HttpResponseRedirect(reverse("login"))
         note = Notes.objects.get(id=int(note_id))
-        form = NodeEditorForm(instance=note)
+        form = NodeEditorForm(request.user, instance=note, user=request.user)
         return render(request, 'node_editor.html', {
             'form': form
         })
 
     def post(self, request, note_id):
         note = Notes.objects.get(id=int(note_id))
-        note_form = NodeEditorForm(request.POST, request.FILES, instance=note)
+        note_form = NodeEditorForm(request.user, request.POST, request.FILES, instance=note)
         if note_form.is_valid():
             note = note_form.save(commit=False)
             note.save()
@@ -88,6 +88,7 @@ class NotesEditorView(View):
         return render(request, 'node_editor.html', {
             'form': note_form,
         })
+
 
 class NewEditorView(View):
     """
@@ -97,7 +98,8 @@ class NewEditorView(View):
         # 用户是否登陆
         if not request.user.is_authenticated():
              return HttpResponseRedirect(reverse("login"))
-        form = NodeEditorForm()
+        form = NodeEditorForm(request.user)
+        # form.Meta.
         return render(request, 'node_editor.html', {
             'form': form,
         })
@@ -105,7 +107,7 @@ class NewEditorView(View):
     def post(self, request):
         if not request.user.is_authenticated():
             return HttpResponseRedirect(reverse("login"))
-        note_form = NodeEditorForm(request.POST, request.FILES)
+        note_form = NodeEditorForm(request.user, request.POST, request.FILES)
         if note_form.is_valid():
             note = note_form.save(commit=False)
             note.author = request.user
@@ -117,19 +119,20 @@ class NewEditorView(View):
         return render(request, 'node_editor.html', {
             'form': note_form,
         })
+
 
 class SearchNotesView(View):
     """
     搜索
     """
     def get(self, request):
-        form = NodeEditorForm()
+        form = NodeEditorForm(request.user)
         return render(request, 'node_editor.html', {
             'form': form,
         })
 
     def post(self, request):
-        note_form = NodeEditorForm(request.POST, request.FILES)
+        note_form = NodeEditorForm(request.user, request.POST, request.FILES)
         if note_form.is_valid():
             note = note_form.save(commit=False)
             note.author = request.user
@@ -141,6 +144,8 @@ class SearchNotesView(View):
         return render(request, 'node_editor.html', {
             'form': note_form,
         })
+
+
 class DeleteNoteView(View):
     """
     删除文章
@@ -154,3 +159,19 @@ class DeleteNoteView(View):
         return redirect("/notes/list/")
 
 
+class AddTagView(View):
+    """
+    添加标签
+    """
+    def get(self):
+        pass
+
+    def post(self):
+        pass
+
+class DeleteTagView(View):
+    """
+    删除标签
+    """
+    def get(self):
+        pass
