@@ -1,0 +1,70 @@
+{% extends "base_notes.html" %}
+
+{% block content %}
+    <section class="content-wrap">
+        <div class="container">
+			<div class="content-padding">
+				<div class="row">
+                    <h2 class="sub-header">笔记列表</h2>
+					<div class="table-responsive">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>笔记名</th>
+                              <th>修改或删除</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for note in notes %}
+                                <tr>
+                                  <td>{{ note.name|truncatewords:10 }}</td>
+                                    <td>
+                                        <a class="btn btn-info" href="{% url 'notes:note_editor' note.id %}">修改</a>
+                                        <a class="btn btn-danger" href="javscript:;" data-url="{% url 'notes:note_delete' note.id %}">删除</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                        <a class="btn btn-primary" href="{% url 'notes:new_editor' %}">添加</a>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+
+{% block custom_js %}
+<script>
+
+  $(function(){
+      $('.btn-danger').on('click', function(){
+          var btn = $(this);
+          if(confirm('确定删除该笔记吗？')){
+          $.ajax(
+                  {
+                      cache:false,
+                      type:"GET",
+                      url:btn.attr('data-url'),
+                      data:{
+                          csrfmiddlewaretoken: '{{ csrf_token }}'
+                      },
+                      async: true,
+                      success: function(data) {
+                          if(data.status == 'success'){
+                              btn.parents('tr').hide();
+                          }
+                          alert(data.msg)
+                      }
+                  }
+          );
+      }
+      });
+  })
+
+</script>
+{% endblock  %}
+
+
+
+

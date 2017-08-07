@@ -21,18 +21,23 @@
             <ul class="nav navbar-nav">
                 <li {% if request.path|slice:'8' == '/' %}class="active"{% endif %}><a href="{% url "index" %}">Home</a></li>
                 <li {% if request.path|slice:'8' == '/notes/l' %}class="active"{% endif %}><a href="{% url 'notes:note_list' %}">Notes</a></li>
-                <li class="dropdown">
+                {% if request.user.is_authenticated %}
+                    <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Self <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    <li><a href="#">自己的笔记</a></li>
                     <li><a href="{% url 'notes:new_editor' %}">增加新笔记</a></li>
                     <li role="separator" class="divider"></li>
+                    <li><a href="?notes_type=user_public">自己的公开笔记</a></li>
+                    <li><a href="?notes_type=user_private">自己的隐私笔记</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{% url 'notes:note_manager_list' %}">笔记管理</a></li>
                     <li><a href="{% url 'notes:category_list' %}">类别管理</a></li>
                     <li><a href="{% url 'notes:tag_list' %}">标签管理</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a href="http://sports.qq.com/nba/?ptag=360.onebox.schedule.nba">NBA</a></li>
                   </ul>
                 </li>
+                {% endif %}
             </ul>
             <div class="navbar-right btn-signin">
                 {% if request.user.is_authenticated %}

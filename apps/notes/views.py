@@ -17,7 +17,7 @@ from utils.mixin_utils import LoginRequiredMixin
 
 class NotesView(View):
     """
-    笔记列表
+    所有公开笔记列表
     """
     def get(self, request):
         all_notes = Notes.objects.all().order_by("-add_time")
@@ -26,12 +26,17 @@ class NotesView(View):
         if search_keywords:
             all_notes = all_notes.filter(Q(author__icontains=search_keywords) | Q(name__icontains=search_keywords) |
                                          Q(content__icontains=search_keywords))
-        # 排序sort
+        # 类别名
         category_name = request.GET.get('category_name', '')
 
-        # 用户是否登陆(公开与隐私过滤)
+        # 公开或是隐私
+        notes_type = request.GET.get('notes_type', '')
+
         if request.user.is_authenticated():
-            all_notes = all_notes.filter(Q(author=request.user) | Q(is_public=True))
+            if notes_type == 'user_private':
+                all_notes = all_notes.filter(author=request.user, is_public=False)
+            elif notes_type == 'user_public':
+                all_notes = all_notes.filter(author=request.user, is_public=True)
         else:
             all_notes = all_notes.filter(is_public=True)
 
@@ -50,6 +55,7 @@ class NotesView(View):
         notes = p.page(page)
         return render(request, 'note-list.html', {
             'all_notes': notes,
+            'notes_type': notes_type,
         })
 
 
@@ -121,6 +127,17 @@ class NewEditorView(View):
         })
 
 
+class NoteManagerListView(LoginRequiredMixin, View):
+    """
+    标签列表
+    """
+    def get(self, request):
+        notes = Notes.objects.filter(author=request.user)
+        return render(request, 'note-manager-list.html', {
+            'notes': notes,
+        })
+
+
 class SearchNotesView(View):
     """
     搜索
@@ -157,6 +174,7 @@ class DeleteNoteView(View):
         note = get_object_or_404(Notes, id=int(note_id))
         note.delete()
         return redirect("/notes/list/")
+
 
 
 class TagListView(LoginRequiredMixin, View):
