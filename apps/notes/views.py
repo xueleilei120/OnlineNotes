@@ -83,9 +83,10 @@ class NotesEditorView(View):
         if note_form.is_valid():
             note = note_form.save(commit=False)
             note.save()
-            return render(request, 'node-detail.html', {
-                'note': note,
-            })
+            # return render(request, 'node-detail.html', {
+            #     'note': note,
+            # })
+            return HttpResponseRedirect(reverse('notes:note_list'))
         return render(request, 'node_editor.html', {
             'form': note_form,
         })
@@ -113,9 +114,7 @@ class NewEditorView(View):
             note = note_form.save(commit=False)
             note.author = request.user
             note.save()
-            return render(request, 'node-detail.html', {
-                'note': note,
-            })
+            return HttpResponseRedirect(reverse('notes:note_list'))
 
         return render(request, 'node_editor.html', {
             'form': note_form,

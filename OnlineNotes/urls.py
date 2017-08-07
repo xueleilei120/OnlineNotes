@@ -22,7 +22,7 @@ import xadmin
 
 
 from users.views import IndexView, LogoutView, LoginView, RegisterView
-from newrecord.settings import MEDIA_ROOT
+from OnlineNotes.settings import MEDIA_ROOT
 
 
 urlpatterns = [
