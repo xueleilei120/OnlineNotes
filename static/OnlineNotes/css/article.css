@@ -157,11 +157,7 @@ a img {
   color: #ffffff;
 }
 
-.btn_active{
-  border: 1px solid #303030;
-  background: #303030;
-  color: #ffffff;
-}
+
 
 /* sidebar */
 /*====================================================
@@ -267,6 +263,16 @@ a img {
 }
 .pagination .page-number {
   background: #e67e22;
+  color: #ffffff;
+  margin: 0 3px;
+  display: inline-block;
+  line-height: 36px;
+  padding: 0 14px;
+  border-radius: 2px;
+}
+
+.page-select a{
+  background: #000000;
   color: #ffffff;
   margin: 0 3px;
   display: inline-block;
