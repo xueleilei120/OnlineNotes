@@ -13,7 +13,7 @@ from notes.models import Notes, Category
 
 def common_info(request):
     hot_notes = Notes.objects.all().order_by('-click_nums')[:5]
-    all_categorys = Category.objects.annotate(note_num=Count('notes')).filter(note_num__gt=0).order_by('note_num')
+    all_categorys = Category.objects.filter(notes__is_public=True).annotate(note_num=Count('notes')).filter(note_num__gt=0).order_by('note_num')
 
     return {
         "HOT_NODES": hot_notes,

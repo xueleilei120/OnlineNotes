@@ -78,6 +78,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.core.context_processors.media',
                 'django.contrib.messages.context_processors.messages',
+                'common.context_processors.common_info',
             ],
         },
     },
@@ -92,7 +93,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'onlinenotes',
         'USER': 'root',
-        'PASSWORD': 'pass',
+        'PASSWORD': 'root',
         'HOST': '127.0.0.1',
     }
 }

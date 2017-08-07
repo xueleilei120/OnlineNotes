@@ -27,8 +27,8 @@
                     <li><a href="#">自己的笔记</a></li>
                     <li><a href="{% url 'notes:new_editor' %}">增加新笔记</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="#">类别管理</a></li>
-                    <li><a href="#">标签管理</a></li>
+                    <li><a href="{% url 'notes:category_list' %}">类别管理</a></li>
+                    <li><a href="{% url 'notes:tag_list' %}">标签管理</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a href="http://sports.qq.com/nba/?ptag=360.onebox.schedule.nba">NBA</a></li>
                   </ul>

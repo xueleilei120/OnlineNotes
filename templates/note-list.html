@@ -62,14 +62,14 @@
                         <div class="widget">
                             <h4 class="title">分类</h4>
                             {% for category in ALL_CATEGORYS %}
-                                <a href="?category_name={{ category.name }}" class="btn btn-default btn-block" >{{ category.name }}({{ category.note_num }})</a>
+                                <a href="?category_name={{ category.name }}" class="btn btn-default btn-block" >{{ category.name }}&nbsp&nbsp({{ category.note_num }})</a>
                             {% endfor %}
                         </div>
                         <div class="widget">
                             <h4 class="title">最热门</h4>
                             <div class="content community">
                                 {% for note in  HOT_NODES %}
-                                    <p><a href="{% url 'notes:note_detail' note.id %}" >{{ note.name|truncatewords:5 }}</a>({{ note.click_nums }})</p>
+                                    <p><a href="{% url 'notes:note_detail' note.id %}" >{{ note.name|truncatewords:5 }}</a>&nbsp&nbsp({{ note.click_nums }})</p>
                                 {% endfor %}
                             </div>
                         </div>

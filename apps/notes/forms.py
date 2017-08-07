@@ -31,3 +31,21 @@ class NodeEditorForm(forms.ModelForm):
             'content': '笔记内容',
             'is_public': '是否公开',
         }
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ('name',)
+        labels = {
+            'name':'类别名'
+        }
+
+
+class TagForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ('name',)
+        labels = {
+            'name':'标签名'
+        }

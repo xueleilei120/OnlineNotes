@@ -1,0 +1,70 @@
+{% extends "base_notes.html" %}
+
+{% block content %}
+    <section class="content-wrap">
+        <div class="container">
+			<div class="content-padding">
+				<div class="row">
+                    <h2 class="sub-header">类别列表</h2>
+					<div class="table-responsive">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>类别名</th>
+                              <th>修改或删除</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for category in categorys %}
+                                <tr>
+                                  <td>{{ category.name }}</td>
+                                    <td>
+                                        <a class="btn btn-info" href="{% url 'notes:category_editor' category.id %}">修改</a>
+                                        <a class="btn btn-danger" href="javscript:;" data-url="{% url 'notes:category_delete' category.id %}">删除</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                        <a class="btn btn-primary" href="{% url 'notes:category_add' %}">添加</a>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+
+{% block custom_js %}
+<script>
+
+  $(function(){
+      $('.btn-danger').on('click', function(){
+          var btn = $(this);
+          if(confirm('确定删除该类别吗？')){
+          $.ajax(
+                  {
+                      cache:false,
+                      type:"POST",
+                      url:btn.attr('data-url'),
+                      data:{
+                          csrfmiddlewaretoken: '{{ csrf_token }}'
+                      },
+                      async: true,
+                      success: function(data) {
+                          if(data.status == 'success'){
+                              btn.parents('tr').hide();
+                          }
+                          alert(data.msg)
+                      }
+                  }
+          );
+      }
+      });
+  })
+
+</script>
+{% endblock  %}
+
+
+
+

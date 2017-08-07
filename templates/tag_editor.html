@@ -1,6 +1,6 @@
 {% extends 'base_notes.html' %}
 {% load crispy_forms_tags %}
-{% block title %}编辑笔记{% endblock %}
+
 
 {% block content %}
     <section class="content-wrap">
@@ -21,19 +21,3 @@
 {% endblock %}
 
 
-{% block custom_js %}
-
-    <script type="text/javascript">
-    window.UEDITOR_HOME_URL = "/static/ueditor/";
-    </script>
-    <script type="text/javascript" src="/static/ueditor/ueditor.config.js"></script>
-    <!-- 编辑器源码文件 -->
-    <script type="text/javascript" src="/static/ueditor/ueditor.all.js"></script>
-
-    <script type="text/plain">
-        这里写你的初始化内容
-        </script>
-        <script type="text/javascript">
-          var ue = UE.getEditor('id_content');
-        </script>
-{% endblock %}

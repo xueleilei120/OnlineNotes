@@ -7,7 +7,8 @@ from django.db.models import Q
 from django.core.urlresolvers import reverse
 
 from notes.models import Notes, Category, Tag
-from notes.forms import NodeEditorForm
+from notes.forms import NodeEditorForm, CategoryForm, TagForm
+from utils.mixin_utils import LoginRequiredMixin
 # from common.cache_manager import CacheMannager
 # Create your views here.
 
@@ -71,7 +72,7 @@ class NotesEditorView(View):
         if not request.user.is_authenticated():
             return HttpResponseRedirect(reverse("login"))
         note = Notes.objects.get(id=int(note_id))
-        form = NodeEditorForm(request.user, instance=note, user=request.user)
+        form = NodeEditorForm(request.user, instance=note)
         return render(request, 'node_editor.html', {
             'form': form
         })
@@ -159,19 +160,135 @@ class DeleteNoteView(View):
         return redirect("/notes/list/")
 
 
-class AddTagView(View):
+class TagListView(LoginRequiredMixin, View):
+    """
+    标签列表
+    """
+    def get(self, request):
+        tags = Tag.objects.filter(author=request.user)
+        return render(request, 'tag-list.html', {
+            'tags':tags,
+        })
+
+
+class AddTagView(LoginRequiredMixin, View):
     """
     添加标签
     """
-    def get(self):
-        pass
+    def get(self, request):
+        form = TagForm()
+        return render(request, 'tag_editor.html', {
+            'form':form,
+        })
 
-    def post(self):
-        pass
+    def post(self, request):
+        tag_form = TagForm(request.POST)
+        if tag_form.is_valid():
+            tag = tag_form.save(commit=False)
+            tag.author = request.user
+            tag.save()
+            return HttpResponseRedirect(reverse("notes:tag_list"))
 
-class DeleteTagView(View):
+        return render(request, 'tag_editor.html', {
+            'form':tag_form,
+        })
+
+class EditorTagView(LoginRequiredMixin, View):
+    """
+    编辑标签
+    """
+    def get(self, request, tag_id):
+        tag = get_object_or_404(Tag, id=int(tag_id))
+        form = TagForm(instance=tag)
+        return render(request, 'tag_editor.html', {
+            'form':form,
+        })
+
+    def post(self, request, tag_id):
+        tag = get_object_or_404(Tag, id=int(tag_id))
+        tag_form = TagForm(request.POST, instance=tag)
+        if tag_form.is_valid():
+            tag_form.save()
+            return HttpResponseRedirect(reverse("notes:tag_list"))
+
+        return render(request, 'tag_editor.html', {
+            'form':tag_form,
+        })
+
+class DeleteTagView(LoginRequiredMixin, View):
     """
     删除标签
     """
-    def get(self):
-        pass
+    def post(self, request, tag_id):
+        tag = Tag.objects.filter(author=request.user, id=int(tag_id))
+        if tag.exists():
+            tag.delete()
+            return HttpResponse('{"status":"success", "msg":"删除标签成功"}', content_type='application/json')
+        return HttpResponse('{"status":"fail", "msg":"删除标签失败"}', content_type='application/json')
+
+
+class CategoryListView(LoginRequiredMixin, View):
+    """
+    类别列表
+    """
+    def get(self, request):
+        categorys = Category.objects.filter(author=request.user)
+        return render(request, 'category-list.html', {
+            'categorys':categorys,
+        })
+
+
+class AddCategoryView(LoginRequiredMixin, View):
+    """
+    添加类别
+    """
+    def get(self, request):
+        form = CategoryForm()
+        return render(request, 'category-editor.html', {
+            'form':form,
+        })
+
+    def post(self, request):
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.author = request.user
+            category.save()
+            return HttpResponseRedirect(reverse("notes:category_list"))
+
+        return render(request, 'category-list.html', {
+            'form':form,
+        })
+
+class EditorCategoryView(LoginRequiredMixin, View):
+    """
+    编辑类别
+    """
+    def get(self, request, category_id):
+        category = get_object_or_404(Category, id=int(category_id))
+        form = CategoryForm(instance=category)
+        return render(request, 'category-editor.html', {
+            'form':form,
+        })
+
+    def post(self, request, category_id):
+        category = get_object_or_404(Category, id=int(category_id))
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse("notes:category_list"))
+
+        return render(request, 'category-editor.html', {
+            'form':form,
+        })
+
+class DeleteCategoryView(LoginRequiredMixin, View):
+    """
+    删除类别
+    """
+    def post(self, request, category_id):
+        category = Category.objects.filter(author=request.user, id=int(category_id))
+        if category.exists():
+            category.delete()
+            return HttpResponse('{"status":"success", "msg":"删除类别成功"}', content_type='application/json')
+        return HttpResponse('{"status":"fail", "msg":"删除类别失败"}', content_type='application/json')
