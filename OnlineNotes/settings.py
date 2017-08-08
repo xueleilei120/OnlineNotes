@@ -93,7 +93,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'onlinenotes',
         'USER': 'root',
-        'PASSWORD': 'pass',
+        'PASSWORD': 'root',
         'HOST': '127.0.0.1',
     }
 }
