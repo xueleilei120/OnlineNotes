@@ -97,6 +97,15 @@ DATABASES = {
         'HOST': '127.0.0.1',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'liuyc2$onlinenotes',
+#         'USER': 'liuyc2',
+#         'PASSWORD': '86816137chao',
+#         'HOST': 'liuyc2.mysql.pythonanywhere-services.com',
+#     }
+# }
 
 
 # Password validation
@@ -134,10 +143,10 @@ USE_TZ = False
 
 # 自己在本地使用过 collections 所以 static 会从record下的static查找，在换model_icon时必须替换record下static
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),  # tuble 中只有一个元素的时候必须加一个,
-)
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),  # tuble 中只有一个元素的时候必须加一个,
+# )
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # 邮箱配置
 EMAIL_HOST = "smtp.sina.com"
