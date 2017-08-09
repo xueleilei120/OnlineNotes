@@ -10,12 +10,15 @@ from django.conf.urls import url, include
 
 
 from notes.views import NotesView, NotesDetailView, NotesEditorView, NewEditorView, DeleteNoteView, NoteManagerListView
-from notes.views import TagListView, AddTagView, DeleteTagView, EditorTagView
+from notes.views import TagListView, AddTagView, DeleteTagView, EditorTagView, PublicNoteListByTagView
 from notes.views import CategoryListView, AddCategoryView, DeleteCategoryView, EditorCategoryView
 
 urlpatterns = [
     # 笔记列表
     url(r'^list/$', NotesView.as_view(), name="note_list"),
+
+    # 根据云标签获取所有公开笔列表
+    url(r'^listbytag/(?P<tag_name>\w+)/$', PublicNoteListByTagView.as_view(), name="public_note_list_by_tag"),
 
     # 笔记详情
     url(r'^detail/(?P<note_id>\d+)/$', NotesDetailView.as_view(), name="note_detail"),

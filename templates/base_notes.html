@@ -72,16 +72,12 @@
                     <div class="widget">
                         <h4 class="title">标签云</h4>
                         <div class="content tag-cloud">
-                                <a href="#">新版本发布</a>
-                                <a href="#">JavaScript</a>
-                                <a href="#">主题</a>
-                                <a href="#">Node.js</a>
-                                <a href="#">MySQL</a>
-                                <a href="#">Nginx</a>
-                                <a href="#">阿里云服务器</a>
-                                <a href="#">反向代理</a>
-                                <a href="#">Apache</a>
+                            {% for name, num, size in TAGS %}
 
+                                <a href="{% url 'notes:note_list' %}?notes_type={{ notes_type }}&tag_name={{ name }}"
+                                    title="{{ num }}个笔记"
+                                    style="font-size: {{ size }}pt;">{{ name }}</a>
+                            {% endfor %}
                             <a href="#">...</a>
                         </div>
                     </div>

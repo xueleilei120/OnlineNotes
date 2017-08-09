@@ -33,8 +33,6 @@ class NotesView(View):
         search_keywords = request.GET.get('keywords', '')
         if search_keywords:
             all_notes = all_notes.filter(Q(name__icontains=search_keywords) | Q(content__icontains=search_keywords))
-        # 类别名
-        category_name = request.GET.get('category_name', '')
 
         if request.user.is_authenticated():
             if notes_type == 'user_private':
@@ -43,9 +41,16 @@ class NotesView(View):
                 all_notes = all_notes.filter(author=request.user, is_public=True)
         else:
             all_notes = all_notes.filter(is_public=True)
-        # 分类过滤
-        if category_name != "":
+
+        # 根据类别名筛选
+        category_name = request.GET.get('category_name', '')
+        if category_name:
             all_notes = all_notes.filter(category__name=category_name)
+
+        # 根据标签筛选
+        tag_name = request.GET.get('tag_name', '')
+        if tag_name:
+            all_notes = all_notes.filter(tag__name=tag_name)
 
         # 对课程进行分页
         try:
@@ -55,8 +60,34 @@ class NotesView(View):
 
         p = Paginator(all_notes, 3, request=request)
 
+        notes = p.page(page)
+        return render(request, 'note-list.html', {
+            'all_notes': notes,
+            'notes_type': notes_type,
+        })
+
+
+class PublicNoteListByTagView(View):
+    """
+    根据云标签获取所有公开文章
+    """
+    def get(self, request, tag_name):
+        all_notes = Notes.objects.all()
+        lst = [node.tag.name for node in all_notes]
+
+        notes = all_notes.filter(tag__name=tag_name)
+        # 对课程进行分页
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+
+        p = Paginator(notes, 3, request=request)
 
         notes = p.page(page)
+
+        # 默认为公开笔记
+        notes_type = ''
         return render(request, 'note-list.html', {
             'all_notes': notes,
             'notes_type': notes_type,
@@ -93,10 +124,23 @@ class NotesEditorView(LoginRequiredMixin, View):
         note_form = NodeEditorForm(request.user, request.POST, request.FILES, instance=note)
         if note_form.is_valid():
             note = note_form.save(commit=False)
+            # 开始处理标签
+            tags = note_form.cleaned_data.get('tag')
+            all_tags = []
+            if tags:
+                for tag in tags:
+                    try:
+                        t = Tag.objects.get(name=tag)
+                    except Tag.DoesNotExist as e:
+                        raise e
+                    all_tags.append(t)
+
             note.save()
-            # return render(request, 'note-detail.html', {
-            #     'note': note,
-            # })
+            note.tag.clear()
+            # 笔记标签更新
+            for tg in all_tags:
+                note.tag.add(tg)
+
             return HttpResponseRedirect(reverse('notes:note_list'))
         return render(request, 'note_editor.html', {
             'form': note_form,
@@ -124,7 +168,23 @@ class NewEditorView(View):
         if note_form.is_valid():
             note = note_form.save(commit=False)
             note.author = request.user
+            # 开始处理标签
+            tags = note_form.cleaned_data.get('tag')
+            all_tags = []
+            if tags:
+                for tag in tags:
+                    try:
+                        t = Tag.objects.get(name=tag)
+                    except Tag.DoesNotExist as e:
+                        raise e
+                    all_tags.append(t)
+
             note.save()
+            note.tag.clear()
+            # 笔记标签更新
+            for tg in all_tags:
+                note.tag.add(tg)
+
             title = note.name
             message_user(self.request,"增加文章(%s)成功"%(title) , 'success')
             return HttpResponseRedirect(reverse('notes:note_list'))
@@ -260,6 +320,7 @@ class AddCategoryView(LoginRequiredMixin, View):
             'form':form,
         })
 
+
 class EditorCategoryView(LoginRequiredMixin, View):
     """
     编辑类别
@@ -281,6 +342,7 @@ class EditorCategoryView(LoginRequiredMixin, View):
         return render(request, 'category-editor.html', {
             'form':form,
         })
+
 
 class DeleteCategoryView(LoginRequiredMixin, View):
     """

@@ -1,7 +1,4 @@
 {% extends "base_notes.html" %}
-{% block title %}
-    笔记列表
-{% endblock %}
 
 {% block content %}
     <section class="content-wrap">
@@ -34,7 +31,7 @@
                               <div class="navbar-form navbar-left">
                                 <div class="input-group search-group">
                                     <input id="search_keywords" class="form-control" type="text" name="_q_" value="" placeholder="搜索 笔记">
-                                    <span class="input-group-btn"><button id="jsSearchBtn" class="btn btn-primary" data-url="?notes_type={{ notes_type }}&category_name={{ category.name }}&keywords="><i class="fa fa-search"></i></button></span>
+                                    <span class="input-group-btn"><button id="jsSearchBtn" class="btn btn-primary" data-url="?notes_type={{ notes_type }}&keywords="><i class="fa fa-search"></i></button></span>
                                 </div>
                               </div><!-- /.navbar-collapse -->
                            </div><!-- /.container-fluid -->
@@ -125,14 +122,12 @@
                                 {% endif %}
                             </div>
                         </div>
-						<div class="widget">
-							<h4 class="title">个人</h4>
+                        <div class="widget">
+                            <h4 class="title">个人</h4>
 							<div class="content community">
 								<p>QQ：290484002</p>
 								<p><a href="http://blog.csdn.net/shaququ" title="" target="_blank" onclick="_hmt.push(['_trackEvent', 'big-button', 'click', '问答社区'])"><i class="fa fa-comments"></i> CSDN</a></p>
 							</div>
-						</div>
-                        <div class="widget">
                             <iframe width="100%" height="310" class="share_self"  frameborder="0" scrolling="no"
                                 src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=5795153368&verifier=d5702a0b&dpc=1">
                             </iframe>
