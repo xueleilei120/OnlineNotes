@@ -8,7 +8,8 @@ from django.core.urlresolvers import reverse
 
 from notes.models import Notes, Category, Tag
 from notes.forms import NodeEditorForm, CategoryForm, TagForm
-from utils.mixin_utils import LoginRequiredMixin
+from utils.mixin_utils import LoginRequiredMixin, message_user
+
 # from common.cache_manager import CacheMannager
 # Create your views here.
 
@@ -20,17 +21,20 @@ class NotesView(View):
     所有公开笔记列表
     """
     def get(self, request):
+        # 公开或是隐私
+        notes_type = request.GET.get('notes_type', '')
+
+        # 当用户点击隐私笔记时，弹出登录
+        if notes_type and not request.user.is_authenticated():
+            return HttpResponseRedirect(reverse("login"))
+
         all_notes = Notes.objects.all().order_by("-add_time")
         # 搜索
         search_keywords = request.GET.get('keywords', '')
         if search_keywords:
-            all_notes = all_notes.filter(Q(author__icontains=search_keywords) | Q(name__icontains=search_keywords) |
-                                         Q(content__icontains=search_keywords))
+            all_notes = all_notes.filter(Q(name__icontains=search_keywords) | Q(content__icontains=search_keywords))
         # 类别名
         category_name = request.GET.get('category_name', '')
-
-        # 公开或是隐私
-        notes_type = request.GET.get('notes_type', '')
 
         if request.user.is_authenticated():
             if notes_type == 'user_private':
@@ -39,7 +43,6 @@ class NotesView(View):
                 all_notes = all_notes.filter(author=request.user, is_public=True)
         else:
             all_notes = all_notes.filter(is_public=True)
-
         # 分类过滤
         if category_name != "":
             all_notes = all_notes.filter(category__name=category_name)
@@ -51,6 +54,7 @@ class NotesView(View):
             page = 1
 
         p = Paginator(all_notes, 3, request=request)
+
 
         notes = p.page(page)
         return render(request, 'note-list.html', {
@@ -66,20 +70,21 @@ class NotesDetailView(View):
         # CHACHE_MANAGER.update_click(note)
         note.click_nums += 1
         note.save()
-        return render(request, 'node-detail.html', {
+        can_editor = False
+        if note.author == request.user:
+            can_editor = True
+        return render(request, 'note-detail.html', {
             'note': note,
+            'can_editor': can_editor
         })
 
 
-class NotesEditorView(View):
+class NotesEditorView(LoginRequiredMixin, View):
     """编辑笔记"""
     def get(self, request, note_id):
-        # 用户是否登陆
-        if not request.user.is_authenticated():
-            return HttpResponseRedirect(reverse("login"))
-        note = Notes.objects.get(id=int(note_id))
+        note = get_object_or_404(Notes, id=int(note_id), author=request.user)
         form = NodeEditorForm(request.user, instance=note)
-        return render(request, 'node_editor.html', {
+        return render(request, 'note_editor.html', {
             'form': form
         })
 
@@ -89,11 +94,11 @@ class NotesEditorView(View):
         if note_form.is_valid():
             note = note_form.save(commit=False)
             note.save()
-            # return render(request, 'node-detail.html', {
+            # return render(request, 'note-detail.html', {
             #     'note': note,
             # })
             return HttpResponseRedirect(reverse('notes:note_list'))
-        return render(request, 'node_editor.html', {
+        return render(request, 'note_editor.html', {
             'form': note_form,
         })
 
@@ -108,7 +113,7 @@ class NewEditorView(View):
              return HttpResponseRedirect(reverse("login"))
         form = NodeEditorForm(request.user)
         # form.Meta.
-        return render(request, 'node_editor.html', {
+        return render(request, 'note_editor.html', {
             'form': form,
         })
 
@@ -120,11 +125,28 @@ class NewEditorView(View):
             note = note_form.save(commit=False)
             note.author = request.user
             note.save()
+            title = note.name
+            message_user(self.request,"增加文章(%s)成功"%(title) , 'success')
             return HttpResponseRedirect(reverse('notes:note_list'))
 
-        return render(request, 'node_editor.html', {
+        return render(request, 'note_editor.html', {
             'form': note_form,
         })
+
+class DeleteNoteView(LoginRequiredMixin, View):
+    """
+    删除文章
+    """
+    def get(self, request, note_id):
+        note = Notes.objects.filter(author=request.user, id=int(note_id))
+        if note.exists():
+            title = note[0].name
+            message_user(self.request,"删除文章(%s)成功"%(title) , 'success')
+            note.delete()
+            return HttpResponseRedirect(reverse("notes:note_list"))
+
+        message_user(self.request,"文章不存在,删除文章失败", 'error')
+        return HttpResponseRedirect(reverse("notes:note_list"))
 
 
 class NoteManagerListView(LoginRequiredMixin, View):
@@ -136,45 +158,6 @@ class NoteManagerListView(LoginRequiredMixin, View):
         return render(request, 'note-manager-list.html', {
             'notes': notes,
         })
-
-
-class SearchNotesView(View):
-    """
-    搜索
-    """
-    def get(self, request):
-        form = NodeEditorForm(request.user)
-        return render(request, 'node_editor.html', {
-            'form': form,
-        })
-
-    def post(self, request):
-        note_form = NodeEditorForm(request.user, request.POST, request.FILES)
-        if note_form.is_valid():
-            note = note_form.save(commit=False)
-            note.author = request.user
-            note.save()
-            return render(request, 'node-detail.html', {
-                'note': note,
-            })
-
-        return render(request, 'node_editor.html', {
-            'form': note_form,
-        })
-
-
-class DeleteNoteView(View):
-    """
-    删除文章
-    """
-    def get(self, request, note_id):
-        # 用户是否登陆
-        if not request.user.is_authenticated():
-            return HttpResponseRedirect(reverse("login"))
-        note = get_object_or_404(Notes, id=int(note_id))
-        note.delete()
-        return redirect("/notes/list/")
-
 
 
 class TagListView(LoginRequiredMixin, View):

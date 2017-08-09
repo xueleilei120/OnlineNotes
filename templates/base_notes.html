@@ -22,13 +22,11 @@
                 <li {% if request.path|slice:'8' == '/' %}class="active"{% endif %}><a href="{% url "index" %}">Home</a></li>
                 <li {% if request.path|slice:'8' == '/notes/l' %}class="active"{% endif %}><a href="{% url 'notes:note_list' %}">Notes</a></li>
                 {% if request.user.is_authenticated %}
-                    <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Self <span class="caret"></span></a>
+                    <li class="active">
+                  <a href="{% url 'notes:note_list' %}?notes_type=user_public" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manager <span class="caret"></span></a>
+{#                  <a href="/about-coaster-cms" class="has-submenu" id="sm-15021620975974148-1" aria-haspopup="true" aria-controls="sm-15021620975974148-2" aria-expanded="false">About<span class="caret"></span></a>#}
                   <ul class="dropdown-menu">
                     <li><a href="{% url 'notes:new_editor' %}">增加新笔记</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="?notes_type=user_public">自己的公开笔记</a></li>
-                    <li><a href="?notes_type=user_private">自己的隐私笔记</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a href="{% url 'notes:note_manager_list' %}">笔记管理</a></li>
                     <li><a href="{% url 'notes:category_list' %}">类别管理</a></li>
@@ -58,20 +56,14 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="widget">
-                        <h4 class="title">最新文章</h4>
-                        <div class="content recent-post">
+                        <h4 class="title">最新公开笔记</h4>
+                        <div class="content tag-cloud">
+                            {% for note in NEW_PUBLIC_NOTES %}
                                 <div class="recent-single-post">
-                                    <a href="/ghost-1-0-rc1/" class="post-title">Ghost 1.0 RC1 发布，可用于生产环境</a>
-                                    <div class="date">2017年7月13日</div>
+                                    <a href="{% url 'notes:note_detail' note.id %}" class="post-title">{{ note.name }}</a>
+                                    <div class="date">{{ note.add_time }}</div>
                                 </div>
-                                <div class="recent-single-post">
-                                    <a href="/ghost-1-0-0-beta-2-released/" class="post-title">Ghost 1.0.0-beta.2 发布啦！</a>
-                                    <div class="date">2017年6月24日</div>
-                                </div>
-                                <div class="recent-single-post">
-                                    <a href="/1-0-0-beta-is-out/" class="post-title">1.0.0 Beta 版本发布啦！！！</a>
-                                    <div class="date">2017年6月9日</div>
-                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -117,9 +109,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <span>Copyright © <a href="http://www.ghostchina.com/">Ghost中文网</a></span> |
-                    <span><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备11008151号</a></span> |
-                    <span>京公网安备11010802014853</span>
+                    <span>Copyright © <a href="http://www.ghostchina.com/">个人在线笔记</a></span> |
+                    <span><a href="http://www.miibeian.gov.cn/" target="_blank">苏备号</a></span> |
                 </div>
             </div>
         </div>

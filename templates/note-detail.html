@@ -1,0 +1,61 @@
+{% extends 'base_notes.html' %}
+{% block title %}笔记详情{% endblock %}
+{% block content %}
+    <section class="content-wrap">
+        <div class="container">
+			<div class="content-padding">
+				<div class="row">
+					<main class="col-md-8 main-content">
+                        <ul class="breadcrumb">
+                          <li><a href="{% url 'index' %}">首页</a></li>
+                          <li><a href="{% url 'notes:note_list' %}">笔记列表</a></li>
+                          <li>笔记详情</li>
+                        </ul>
+                        <article class="post">
+                            <div class="post-head">
+
+                                <h1 class="post-title"><a href="{% url 'notes:note_detail' note.id %}">{{ note.name }}</a></h1>
+                                <div class="post-meta">
+                                    <span class="author">作者：<a href="#">{{ note.author.nick_name }}</a></span> •
+                                    <time class="post-date" datetime="{{ note.add_time }}" title="{{ note.add_time }}">{{ note.add_time }}</time>
+                                </div>
+                            </div>
+                            <div class="featured-media">
+                                <a href="#">
+                                    <img src="{{ MEDIA_URL }}{{ note.image }}" alt="Ghost 1.0.0-beta.2 发布啦！">
+                                </a>
+                            </div>
+                            <div class="post-content">
+                                {% autoescape off %}
+                                    <p>&nbsp; &nbsp;{{ note.content }}</p>
+                                {% endautoescape %}
+                            </div>
+                            <br>
+                            {% if can_editor %}
+                                <div class="post-permalink">
+                                    <a href="{% url 'notes:note_editor' note.id %}" class="btn btn-default">编辑</a>
+                                    <a class="btn btn-danger" href="{% url 'notes:note_delete' note.id %}"  onclick="return confirm('确定删除吗?')" >删除</a>
+                                </div>
+                            {% endif %}
+                            <HR>
+                        </article>
+
+					</main>
+					<aside class="col-md-4 sidebar">
+						<!-- start tag cloud widget -->
+						<div class="widget">
+							<h4 class="title">社区</h4>
+							<div class="content community">
+								<p>QQ群：277327792</p>
+								<p><a href="http://wenda.ghostchina.com/" title="Ghost中文网问答社区" target="_blank" onclick="_hmt.push(['_trackEvent', 'big-button', 'click', '问答社区'])"><i class="fa fa-comments"></i> 问答社区</a></p>
+								<p><a href="http://weibo.com/ghostchinacom" title="Ghost中文网官方微博" target="_blank" onclick="_hmt.push(['_trackEvent', 'big-button', 'click', '官方微博'])"><i class="fa fa-weibo"></i> 官方微博</a></p>
+							</div>
+						</div>
+						<!-- end tag cloud widget -->
+					</aside>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+

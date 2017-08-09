@@ -8,7 +8,38 @@
         <div class="container">
 			<div class="content-padding">
 				<div class="row">
-					<main class="col-md-8 main-content">
+                    <main class="col-md-8 main-content">
+                        <!-- message -->
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p{% if message.tags %} class="{{ message.tags }}" {% endif %} style="padding: 10px">{{ message }}</p>
+                            {% endfor %}
+                        {% endif %}
+                        <!-- 面包屑 -->
+                        <ul class="breadcrumb">
+                          <li><a href="{% url 'index' %}">首页</a></li>
+                          <li>笔记列表</li>
+                        </ul>
+                        <nav class="navbar navbar-default">
+                          <div class="container-fluid">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div  >
+                              <ul class="nav navbar-nav">
+                                <li {% if notes_type == "" %}class="active"{% endif %}><a href="?notes_type=">全部公开</a></li>
+                                <li {% if notes_type == "user_public" %}class="active"{% endif %}><a href="?notes_type=user_public">自己的公开笔记 <span class="sr-only">(current)</span></a></li>
+                                <li {% if notes_type == "user_private" %}class="active"{% endif %}><a href="?notes_type=user_private">自己的私密笔记</a></li>
+                              </ul>
+                              <div class="navbar-form navbar-left">
+                                <div class="input-group search-group">
+                                    <input id="search_keywords" class="form-control" type="text" name="_q_" value="" placeholder="搜索 笔记">
+                                    <span class="input-group-btn"><button id="jsSearchBtn" class="btn btn-primary" data-url="?notes_type={{ notes_type }}&category_name={{ category.name }}&keywords="><i class="fa fa-search"></i></button></span>
+                                </div>
+                              </div><!-- /.navbar-collapse -->
+                           </div><!-- /.container-fluid -->
+                          </div>
+                        </nav>
                         {% for note in all_notes.object_list %}
                             <article class="post">
                                 <div class="post-head">
@@ -77,7 +108,7 @@
 
                         </div>
                         <div class="widget">
-                            <h4 class="title">最热门</h4>
+                            <h4 class="title">阅读排行</h4>
                             <div class="content community">
                                 {% if notes_type == 'user_private' %}
                                     {% for note in  USER_PRIVATE_HOT_NODES %}
