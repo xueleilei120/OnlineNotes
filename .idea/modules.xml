@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/OnlineNotes.iml" filepath="$PROJECT_DIR$/.idea/OnlineNotes.iml" />
+      <module fileurl="file://$USER_HOME$/Desktop/在线笔记/Test_python/.idea/Test.iml" filepath="$USER_HOME$/Desktop/在线笔记/Test_python/.idea/Test.iml" />
       <module fileurl="file://$PROJECT_DIR$/../newrecord/.idea/newrecord.iml" filepath="$PROJECT_DIR$/../newrecord/.idea/newrecord.iml" />
       <module fileurl="file://$USER_HOME$/Desktop/在线笔记/p1avoc/.idea/p1avoc.iml" filepath="$USER_HOME$/Desktop/在线笔记/p1avoc/.idea/p1avoc.iml" />
       <module fileurl="file://$USER_HOME$/PycharmProjects/untitled5/.idea/untitled5.iml" filepath="$USER_HOME$/PycharmProjects/untitled5/.idea/untitled5.iml" />

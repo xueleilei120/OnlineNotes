@@ -20,6 +20,7 @@
     <orderEntry type="module" module-name="newrecord" />
     <orderEntry type="module" module-name="untitled5" />
     <orderEntry type="module" module-name="p1avoc" />
+    <orderEntry type="module" module-name="Test" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

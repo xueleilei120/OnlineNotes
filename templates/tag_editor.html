@@ -8,6 +8,11 @@
 			<div class="content-padding">
 				<div class="row">
 					<main class="col-md-8 main-content">
+                         <div class="{% if msg %} has-error{% endif %}">
+                               {% if msg %}
+                                  <p id="error_{{ forloop.counter }}_{{ field.auto_id }}" class="text-danger help-block">{{ msg }}</p>
+                               {% endif %}
+                         </div>
                         <form method="POST" class="post-form" action="" enctype="multipart/form-data">
                             {{ form | crispy }}
                             <button class="btn btn-primary" type="submit" >提交</button>

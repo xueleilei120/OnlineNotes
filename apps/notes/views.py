@@ -174,7 +174,7 @@ class NewEditorView(View):
             if tags:
                 for tag in tags:
                     try:
-                        t = Tag.objects.get(name=tag)
+                        t = Tag.objects.get(name=tag, author=request.user)
                     except Tag.DoesNotExist as e:
                         raise e
                     all_tags.append(t)
@@ -243,14 +243,20 @@ class AddTagView(LoginRequiredMixin, View):
 
     def post(self, request):
         tag_form = TagForm(request.POST)
+        msg = ''
         if tag_form.is_valid():
             tag = tag_form.save(commit=False)
             tag.author = request.user
-            tag.save()
-            return HttpResponseRedirect(reverse("notes:tag_list"))
+            lst_tag = Tag.objects.filter(name=tag.name,author=tag.author)
+            if lst_tag.exists():
+                msg = "{0}:添加失败,该标签已经存在！".format(tag.name)
+            else:
+                tag.save()
+                return HttpResponseRedirect(reverse("notes:tag_list"))
 
         return render(request, 'tag_editor.html', {
-            'form':tag_form,
+            'form': tag_form,
+            'msg': msg,
         })
 
 class EditorTagView(LoginRequiredMixin, View):
@@ -265,14 +271,22 @@ class EditorTagView(LoginRequiredMixin, View):
         })
 
     def post(self, request, tag_id):
-        tag = get_object_or_404(Tag, id=int(tag_id))
-        tag_form = TagForm(request.POST, instance=tag)
+        tag_original = get_object_or_404(Tag, id=int(tag_id))
+        tag_form = TagForm(request.POST, instance=tag_original)
+        msg = ''
         if tag_form.is_valid():
-            tag_form.save()
-            return HttpResponseRedirect(reverse("notes:tag_list"))
+            tag = tag_form.save(commit=False)
+            lst_tag = Tag.objects.filter(name=tag.name, author=tag.author)
+
+            if not lst_tag.exists():
+                tag.save()
+                return HttpResponseRedirect(reverse("notes:tag_list"))
+            else:
+                msg = "{0}:修改失败,该标签已经存在！".format(tag.name)
 
         return render(request, 'tag_editor.html', {
             'form':tag_form,
+            'msg': msg
         })
 
 class DeleteTagView(LoginRequiredMixin, View):
@@ -310,14 +324,20 @@ class AddCategoryView(LoginRequiredMixin, View):
 
     def post(self, request):
         form = CategoryForm(request.POST)
+        msg = ''
         if form.is_valid():
             category = form.save(commit=False)
             category.author = request.user
-            category.save()
-            return HttpResponseRedirect(reverse("notes:category_list"))
+            categorys = Category.objects.filter(name=category.name, author=category.author)
+            if not categorys.exists():
+                category.save()
+                return HttpResponseRedirect(reverse("notes:category_list"))
+            else:
+                msg = "{0}:添加失败,该分类已经存在！".format(category.name)
 
-        return render(request, 'category-list.html', {
+        return render(request, 'category-editor.html', {
             'form':form,
+            'msg': msg
         })
 
 
@@ -333,14 +353,22 @@ class EditorCategoryView(LoginRequiredMixin, View):
         })
 
     def post(self, request, category_id):
-        category = get_object_or_404(Category, id=int(category_id))
-        form = CategoryForm(request.POST, instance=category)
+        category_original = get_object_or_404(Category, id=int(category_id))
+        form = CategoryForm(request.POST, instance=category_original)
+
+        category = form.save(commit=False)
+        categorys = Category.objects.filter(name=category.name, author=category.author)
+        msg = ''
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse("notes:category_list"))
+            if not categorys.exists():
+                category.save()
+                return HttpResponseRedirect(reverse("notes:category_list"))
+            else:
+                msg = "{0}:修改失败，该分类已经存在！".format(category.name)
 
         return render(request, 'category-editor.html', {
-            'form':form,
+            'form': form,
+            'msg': msg,
         })
 
 

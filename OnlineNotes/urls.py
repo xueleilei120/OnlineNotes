@@ -22,7 +22,7 @@ import xadmin
 
 
 from users.views import IndexView, LogoutView, LoginView, RegisterView
-from OnlineNotes.settings import MEDIA_ROOT
+from OnlineNotes.settings import MEDIA_ROOT, STATIC_ROOT
 
 
 urlpatterns = [
@@ -47,4 +47,11 @@ urlpatterns = [
     # 富文本编辑器
     url(r'^ueditor/', include('DjangoUeditor.urls')),
 
+    url(r'^static/(?P<path>.*)$',  serve, {"document_root":STATIC_ROOT}),
+
 ]
+
+
+#全局404页面配置
+handler404 = 'users.views.page_not_found'
+handler500 = 'users.views.page_error'

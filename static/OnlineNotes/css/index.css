@@ -2,3 +2,10 @@
     padding: 52px 1px;
     text-align: center;
 }
+
+.carousel-inner>.item>img{
+    display: block;
+    height: auto;
+    width: 100%;
+    max-width: 100%;
+}
