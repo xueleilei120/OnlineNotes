@@ -47,7 +47,7 @@ urlpatterns = [
     # 富文本编辑器
     url(r'^ueditor/', include('DjangoUeditor.urls')),
 
-    url(r'^static/(?P<path>.*)$',  serve, {"document_root":STATIC_ROOT}),
+    # url(r'^static/(?P<path>.*)$',  serve, {"document_root":STATIC_ROOT}),
 
 ]
 
