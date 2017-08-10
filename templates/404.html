@@ -1,17 +1,22 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load staticfiles %}
+{% block custom_css %}
+    <style type="text/css">
+        .starter-template {
+             padding: 40px 15px;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
 {% block body %}
-    <div class="bg404 errorpage">
-        <section>
-            <div class="wp">
-                <div class="cont">
-                    <img src="{% static 'images/pic404.png' %}"/>
-                    <br/><br/><br/><br/>
-                    <p>wow~这个页面被外星人抢走了~</p>
-                    <br/>
-                    <span>Wow~ this page was the alien took ~</span>
-                </div>
-            </div>
-        </section>
+    <div class="container">
+        <div class="starter-template">
+            <br/><br/><br/><br/>
+            <img src="{% static 'images/pic404.png' %}"/>
+            <br/><br/><br/><br/>
+            <p>wow~这个页面被外星人抢走了~</p>
+            <br/>
+            <span>Wow~ this page was the alien took ~</span>
+        </div>
     </div>
 {% endblock %}
