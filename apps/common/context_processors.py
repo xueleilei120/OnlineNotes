@@ -38,7 +38,7 @@ def common_info(request):
     new_public_notes = all_notes.filter(is_public=True).order_by("-add_time")[:3]
 
     # 云标签
-    tags = Tag.objects.annotate(note_num=Count('notes'))
+    tags = Tag.objects.annotate(note_num=Count('notes')).filter(note_num__gt=0)
     dict_tags = {tag.name: tag.note_num for tag in tags}
 
     return {
