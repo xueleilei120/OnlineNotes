@@ -25,10 +25,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/OnlineNotes/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.59447">
+            <state vertical-scroll-proportion="0.0">
               <caret line="159" column="21" selection-start-line="159" selection-start-column="21" selection-end-line="159" selection-end-column="21" />
               <folding />
             </state>
@@ -47,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="note-list.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="note-list.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/note-list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.056338027">
-              <caret line="128" column="163" selection-start-line="128" selection-start-column="163" selection-end-line="128" selection-end-column="163" />
+            <state vertical-scroll-proportion="0.49309912">
+              <caret line="58" column="38" selection-start-line="58" selection-start-column="38" selection-end-line="58" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -151,8 +151,8 @@
         <option value="$PROJECT_DIR$/templates/note-detail.html" />
         <option value="$PROJECT_DIR$/templates/note-manager-list.html" />
         <option value="$PROJECT_DIR$/templates/base_notes.html" />
-        <option value="$PROJECT_DIR$/templates/note-list.html" />
         <option value="$PROJECT_DIR$/OnlineNotes/settings.py" />
+        <option value="$PROJECT_DIR$/templates/note-list.html" />
       </list>
     </option>
   </component>
@@ -559,7 +559,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="1" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12260128" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -907,7 +907,7 @@
         <state vertical-scroll-proportion="-3.902439">
           <caret line="5" column="55" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="55" />
           <folding>
-            <element signature="n#style#0;n#div#5;n#div#1;n#div#0;n#form#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#5;n#div#1;n#div#0;n#form#0;n#div#0;n#div#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -974,14 +974,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/note-list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.056338027">
-          <caret line="128" column="163" selection-start-line="128" selection-start-column="163" selection-end-line="128" selection-end-column="163" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/category-list.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1000,8 +992,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OnlineNotes/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.59447">
+        <state vertical-scroll-proportion="0.0">
           <caret line="159" column="21" selection-start-line="159" selection-start-column="21" selection-end-line="159" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/note-list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49309912">
+          <caret line="58" column="38" selection-start-line="58" selection-start-column="38" selection-end-line="58" selection-end-column="38" />
           <folding />
         </state>
       </provider>
