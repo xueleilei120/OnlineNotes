@@ -15,7 +15,7 @@
       <sourceFolder url="file://$MODULE_DIR$/apps" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/extra_apps" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 2.7.13 virtualenv at C:\Envs\newrecord2" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 2.7.10 virtualenv at E:\virtualevn\OnlineNotes2" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="newrecord" />
     <orderEntry type="module" module-name="untitled5" />

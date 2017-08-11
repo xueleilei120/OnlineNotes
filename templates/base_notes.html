@@ -22,28 +22,36 @@
                 <li {% if request.path|slice:'8' == '/' %}class="active"{% endif %}><a href="{% url "index" %}">Home</a></li>
                 <li {% if request.path|slice:'8' == '/notes/l' %}class="active"{% endif %}><a href="{% url 'notes:note_list' %}">Notes</a></li>
                 {% if request.user.is_authenticated %}
-                    <li class="active">
-                  <a href="{% url 'notes:note_list' %}?notes_type=user_public" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manager <span class="caret"></span></a>
+                    <li >
+                        <a href="{% url 'notes:note_list' %}?notes_type=user_public" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manager <span class="caret"></span></a>
 {#                  <a href="/about-coaster-cms" class="has-submenu" id="sm-15021620975974148-1" aria-haspopup="true" aria-controls="sm-15021620975974148-2" aria-expanded="false">About<span class="caret"></span></a>#}
                   <ul class="dropdown-menu">
-                    <li><a href="{% url 'notes:new_editor' %}">增加新笔记</a></li>
+                    <li><a href="{% url 'notes:new_editor' %}"><i class="fa fa-plus"></i> 增加 笔记</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="{% url 'notes:note_manager_list' %}">笔记管理</a></li>
-                    <li><a href="{% url 'notes:category_list' %}">类别管理</a></li>
-                    <li><a href="{% url 'notes:tag_list' %}">标签管理</a></li>
+                    <li><a href="{% url 'notes:note_manager_list' %}"><i class="fa-fw fa fa-cog"></i> 笔记管理</a></li>
+                    <li><a href="{% url 'notes:category_list' %}"><i class="fa-fw fa fa-cog"></i> 类别管理</a></li>
+                    <li><a href="{% url 'notes:tag_list' %}"><i class="fa-fw fa fa-cog"></i> 标签管理</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="http://sports.qq.com/nba/?ptag=360.onebox.schedule.nba">NBA</a></li>
+                    <li><a href="http://sports.qq.com/nba/?ptag=360.onebox.schedule.nba"><i class="fa fa-chain" aria-hidden="true"></i> NBA</a></li>
                   </ul>
                 </li>
                 {% endif %}
             </ul>
-            <div class="navbar-right btn-signin">
-                {% if request.user.is_authenticated %}
-                    <a href="{% url 'logout' %}" class="btn btn-success">Logout</a>
-                {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-success">Sign in</a>
-                    <a href="{% url 'register' %}" class="btn btn-success">Register</a>
-                {% endif %}
+            <div class="navbar-right ">
+                <ul class="nav navbar-nav">
+                    {% if request.user.is_authenticated %}
+                        <li class="active">
+                            <a href="{% url 'notes:note_list' %}?notes_type=user_public" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">欢迎，{{ request.user.nick_name }} <span class="caret"></span></a>
+                           <ul class="dropdown-menu">
+                            <li><a href="{% url 'users:modify_pwd' %}"><i class="fa fa-key"></i> 修改密码</a></li>
+                          </ul>
+                        </li>
+                        <li><a href="{% url 'logout' %}" >Logout</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}" >Sign in</a></li>
+                        <li><a href="{% url 'register' %}" >Register</a></li>
+                    {% endif %}
+                </ul>
             </div>
         </div><!--/.nav-collapse -->
 
@@ -60,7 +68,7 @@
                         <div class="content tag-cloud">
                             {% for note in NEW_PUBLIC_NOTES %}
                                 <div class="recent-single-post">
-                                    <a href="{% url 'notes:note_detail' note.id %}" class="post-title">{{ note.name }}</a>
+                                    <a href="{% url 'notes:note_detail' note.id %}" class="post-title">{{ note.name|slice:"20" }}</a>
                                     <div class="date">{{ note.add_time }}</div>
                                 </div>
                             {% endfor %}
@@ -88,7 +96,8 @@
                         <h4 class="title">常用网站</h4>
                         <div class="content tag-cloud friend-links">
                             <a href="http://www.bootcss.com" title="Bootstrap中文网" onclick="_hmt.push(['_trackEvent', 'link', 'click', 'bootcsscom'])" target="_blank">Bootstrap中文网</a>
-                            <a href="https://github.com/" title="Bootstrap中文网" onclick="_hmt.push(['_trackEvent', 'link', 'click', 'bootcsscom'])" target="_blank">Github</a>
+                            <a href="https://github.com/" title="Github" onclick="_hmt.push(['_trackEvent', 'link', 'click', 'Github'])" target="_blank">Github</a>
+                            <a href="https://www.pythonanywhere.com" title="Pythonanywhere" onclick="_hmt.push(['_trackEvent', 'link', 'click', 'Pythonanywhere'])" target="_blank">Pythonanywhere</a>
                             <hr>
                             <a href="http://python.usyiyi.cn/translate/django_182/index.html" title="Django中文文档" onclick="_hmt.push(['_trackEvent', 'link', 'click', 'lodashjscom'])" target="_blank">Django中文文档</a>
                             <a href="http://www.jquery123.com/" title="jQuery中文文档" onclick="_hmt.push(['_trackEvent', 'link', 'click', 'jquery123com'])" target="_blank">jQuery中文文档</a>
