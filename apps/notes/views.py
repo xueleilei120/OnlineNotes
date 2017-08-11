@@ -39,6 +39,8 @@ class NotesView(View):
                 all_notes = all_notes.filter(author=request.user, is_public=False)
             elif notes_type == 'user_public':
                 all_notes = all_notes.filter(author=request.user, is_public=True)
+            else:
+                all_notes = all_notes.filter(is_public=True)
         else:
             all_notes = all_notes.filter(is_public=True)
 
