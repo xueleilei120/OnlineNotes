@@ -22,7 +22,8 @@ import xadmin
 
 
 from users.views import IndexView, LogoutView, LoginView, RegisterView
-from OnlineNotes.settings import MEDIA_ROOT, STATIC_ROOT
+from OnlineNotes.settings import MEDIA_ROOT
+# from OnlineNotes.settings import STATIC_ROOT
 
 
 urlpatterns = [
@@ -40,14 +41,14 @@ urlpatterns = [
     # 笔记
     url(r'^notes/', include('notes.urls', namespace="notes")),
     # 用户
-    # url(r'^users/', include('users.urls', namespace="users")),
+    url(r'^users/', include('users.urls', namespace="users")),
     # 配置上传文件的访问处理函数
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 
     # 富文本编辑器
     url(r'^ueditor/', include('DjangoUeditor.urls')),
 
-    url(r'^static/(?P<path>.*)$',  serve, {"document_root": STATIC_ROOT}),
+    # url(r'^static/(?P<path>.*)$',  serve, {"document_root": STATIC_ROOT}),
 
 ]
 
