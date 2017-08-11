@@ -88,24 +88,24 @@ AUTH_USER_MODEL = "users.UserProfile"
 WSGI_APPLICATION = 'OnlineNotes.wsgi.application'
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'onlinenotes',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
-    }
-}
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'liuyc2$onlinenotes',
-#         'USER': 'liuyc2',
-#         'PASSWORD': '86816137chao',
-#         'HOST': 'liuyc2.mysql.pythonanywhere-services.com',
+#         'NAME': 'onlinenotes',
+#         'USER': 'root',
+#         'PASSWORD': 'root',
+#         'HOST': '127.0.0.1',
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'liuyc2$onlinenotes',
+        'USER': 'liuyc2',
+        'PASSWORD': '86816137chao',
+        'HOST': 'liuyc2.mysql.pythonanywhere-services.com',
+    }
+}
 
 
 # Password validation
