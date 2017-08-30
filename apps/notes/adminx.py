@@ -20,7 +20,7 @@ class UserInline(object):
 
 class NotesAdmin(object):
     # 后台中点击邮箱验证码 要显示的字段
-    list_display = ['name', 'author', 'is_public', 'click_nums', 'add_time', 'go_to']
+    list_display = ['name', 'author', 'is_public', 'click_nums', 'add_time', 'go_to', 'image']
     # 后台要搜索的字段
     search_fields = ['name', 'author', 'content', 'is_public', 'click_nums', 'add_time']
     # 后台过滤器

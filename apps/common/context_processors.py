@@ -42,7 +42,7 @@ def common_info(request):
     dict_tags = {tag.name: tag.note_num for tag in tags}
 
     return {
-        "NEW_PUBLIC_NOTES":new_public_notes,
+        "NEW_PUBLIC_NOTES": new_public_notes,
         "PUBLIC_HOT_NODES": public_hot_notes,
         "USER_PUBLIC_HOT_NODES": user_public_hot_notes,
         "USER_PRIVATE_HOT_NODES": user_private_hot_notes,

@@ -17,7 +17,7 @@
                           <tbody>
                             {% for note in notes %}
                                 <tr>
-                                  <td>{{ note.name|slice:"30" }}</td>
+                                  <td>{{ note.name|slice:"15" }}</td>
                                     <td>
                                         <a class="btn btn-info" href="{% url 'notes:note_editor' note.id %}">修改</a>
                                         <a class="btn btn-danger" href="{% url 'notes:note_delete' note.id %}"  onclick="return confirm('确定删除吗?')" >删除</a>

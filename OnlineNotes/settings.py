@@ -27,7 +27,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 SECRET_KEY = 'i4$fs4nora&3@su$&%!)9((0_%-nr_brd5=q#8!$+95zg7t2u8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'DjangoUeditor',
     'users',
     'notes',
+    'qsbk',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -88,24 +89,24 @@ AUTH_USER_MODEL = "users.UserProfile"
 WSGI_APPLICATION = 'OnlineNotes.wsgi.application'
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'onlinenotes',
-#         'USER': 'root',
-#         'PASSWORD': 'root',
-#         'HOST': '127.0.0.1',
-#     }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'liuyc2$onlinenotes',
-        'USER': 'liuyc2',
-        'PASSWORD': '86816137chao',
-        'HOST': 'liuyc2.mysql.pythonanywhere-services.com',
+        'NAME': 'onlinenotes',
+        'USER': 'root',
+        'PASSWORD': 'pass',
+        'HOST': '127.0.0.1',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'liuyc2$onlinenotes',
+#         'USER': 'liuyc2',
+#         'PASSWORD': '86816137chao',
+#         'HOST': 'liuyc2.mysql.pythonanywhere-services.com',
+#     }
+# }
 
 
 # Password validation

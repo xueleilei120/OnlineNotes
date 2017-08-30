@@ -67,17 +67,15 @@
                     </div>
                   </div>
 
-                  <div id="div_id_username" class="row {% if register_form.captcha.errors %} has-error{% endif %}">
+                  <div id="email_register_form div_id_username" class="row {% if register_form.captcha.errors %} has-error{% endif %}">
                     <div class="controls clearfix">
                     <div class="input-group input-group-lg captcha1">
                       <span class="input-group-addon"><i class="fa fa-picture-o"></i></span>
                       {{ register_form.captcha }}
                     </div>
-
                         {% for error in register_form.captcha.errors %}
                             <p id="error_{{ forloop.counter }}_{{ field.auto_id }}" class="text-danger help-block">{{ error }}</p>
                         {% endfor %}
-
                     </div>
                   </div>
 

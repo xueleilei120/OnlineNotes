@@ -26,4 +26,5 @@
 .captcha1 > img{
   float:right;
   margin-top:5px;
+  cursor: pointer;
 }

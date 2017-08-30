@@ -68,7 +68,7 @@
                         <div class="content tag-cloud">
                             {% for note in NEW_PUBLIC_NOTES %}
                                 <div class="recent-single-post">
-                                    <a href="{% url 'notes:note_detail' note.id %}" class="post-title">{{ note.name|slice:"20" }}</a>
+                                    <a href="{% url 'notes:note_detail' note.id %}" class="post-title">{{ note.name|slice:"10" }}</a>
                                     <div class="date">{{ note.add_time }}</div>
                                 </div>
                             {% endfor %}
