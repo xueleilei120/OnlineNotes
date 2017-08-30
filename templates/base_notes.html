@@ -36,6 +36,7 @@
                   </ul>
                 </li>
                 {% endif %}
+                <li {% if request.path|slice:'8' == '/qsbk/li' %}class="active"{% endif %}><a href="{% url 'qsbk_articles:article_list' %}">QSBK</a></li>
             </ul>
             <div class="navbar-right ">
                 <ul class="nav navbar-nav">

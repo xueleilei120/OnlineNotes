@@ -52,6 +52,9 @@ urlpatterns = [
     url(r'^captcha/', include('captcha.urls')),
     # url(r'^static/(?P<path>.*)$',  serve, {"document_root": STATIC_ROOT}),
 
+    # 糗事百科
+    url(r'^qsbk/', include('qsbk.urls', namespace="qsbk_articles")),
+
 
 ]
 
